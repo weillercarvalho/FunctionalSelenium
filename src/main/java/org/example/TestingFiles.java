@@ -26,5 +26,24 @@ public class TestingFiles {
         Assert.assertEquals("Testing", driver.findElement(By.name("elementosForm:sugestoes")).getAttribute("value"));
         driver.quit();
     }
-
+    @Test
+    public void testRadioButton() {
+        WebDriver driver = new ChromeDriver();
+        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/components.html");
+        for (int i = 0; i < 2; i++) {
+            driver.findElement(By.id("elementosForm:sexo:" + i)).click();
+            Assert.assertTrue(driver.findElement(By.id("elementosForm:sexo:" + i)).isSelected());
+        }
+        driver.quit();
+    }
+    @Test
+    public void testCheckbox() {
+        WebDriver driver = new ChromeDriver();
+        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/components.html");
+        for (int i = 0; i < 4; i++) {
+            driver.findElement(By.id("elementosForm:comidaFavorita:" + i)).click();
+            Assert.assertTrue(driver.findElement(By.id("elementosForm:comidaFavorita:" + i)).isSelected());
+        }
+        driver.quit();
+    }
 }
