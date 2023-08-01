@@ -77,4 +77,61 @@ public class TestingFiles {
         Assert.assertEquals(8, options.size());
         driver.quit();
     }
+    @Test
+    public void testListMultCombo() {
+        WebDriver driver = new ChromeDriver();
+        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/components.html");
+        WebElement element = driver.findElement(By.id("elementosForm:esportes"));
+        Select comboBox = new Select(element);
+        List<WebElement> options = comboBox.getOptions();
+        comboBox.selectByVisibleText("Karate");
+        List<WebElement> allOptions = comboBox.getAllSelectedOptions();
+        boolean val = true;
+        for (WebElement option : options) {
+            if (option.getText().equals("Karate")) {
+                val = false;
+                break;
+            }
+        }
+        Assert.assertEquals(1, allOptions.size());
+        Assert.assertFalse(val);
+        driver.quit();
+    }
+    @Test
+    public void testClickMessage() {
+        WebDriver driver = new ChromeDriver();
+        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/components.html");
+        WebElement element = driver.findElement(By.id("buttonSimple"));
+        element.click();
+        Assert.assertEquals("Obrigado!", element.getAttribute("value"));
+        driver.quit();
+    }
+
+    @Test
+    public void testLink() {
+        WebDriver driver = new ChromeDriver();
+        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/components.html");
+        WebElement element = driver.findElement(By.linkText("Voltar"));
+        element.click();
+        String element1 = driver.findElement(By.id("resultado")).getText();
+        Assert.assertEquals("Voltou!", element1);
+        driver.quit();
+    }
+//    @Test
+//    public void searchText() {
+//        WebDriver driver = new ChromeDriver();
+//        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/components.html");
+//        WebElement element = driver.findElement(By.tagName("a"));
+//        Select link = new Select(element);
+//        List<WebElement> listLink = link.getOptions();
+//        boolean val = false;
+//        for (WebElement links: listLink) {
+//            if (links.getText().equals("Curso de Testes Funcionais automatizados com Selenium Webdriver")) {
+//                val = true;
+//                break;
+//            }
+//        }
+//        Assert.assertTrue(val);
+//    }
+//    RETESTAR ISSO QUE QUE TA DANDO FALHA
 }
