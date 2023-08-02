@@ -43,7 +43,7 @@
       <recent name="$PROJECT_DIR$/src/main/resources" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.TestingFiles.testPrompt">
+  <component name="RunManager">
     <configuration name="TestingFiles.confirmRejectAlert" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="TestSelenium" />
       <extension name="coverage">
@@ -92,22 +92,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestingFiles.testLink" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="TestSelenium" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.example.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.example" />
-      <option name="MAIN_CLASS_NAME" value="org.example.TestingFiles" />
-      <option name="METHOD_NAME" value="testLink" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="TestingFiles.testPrompt" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="TestSelenium" />
       <extension name="coverage">
@@ -124,13 +108,29 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TestingFiles.testSignUp" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TestSelenium" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.example" />
+      <option name="MAIN_CLASS_NAME" value="org.example.TestingFiles" />
+      <option name="METHOD_NAME" value="testSignUp" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TestingFiles.testSignUp" />
         <item itemvalue="JUnit.TestingFiles.testPrompt" />
         <item itemvalue="JUnit.TestingFiles.confirmRejectAlert" />
         <item itemvalue="JUnit.TestingFiles.testAlert" />
         <item itemvalue="JUnit.TestingFiles.searchText" />
-        <item itemvalue="JUnit.TestingFiles.testLink" />
       </list>
     </recent_temporary>
   </component>

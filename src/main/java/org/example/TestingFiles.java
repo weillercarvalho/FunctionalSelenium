@@ -182,7 +182,36 @@ public class TestingFiles {
         }
         dropDown(driver);
     }
-
+    @Test
+    public void testSignUp() {
+        WebDriver driver = new ChromeDriver();
+        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/components.html");
+        driver.findElement(By.id("elementosForm:nome")).sendKeys("Weiller");
+        Assert.assertEquals("Weiller", driver.findElement(By.id("elementosForm:nome")).getAttribute("value"));
+        driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Carvalho");
+        Assert.assertEquals("Carvalho", driver.findElement(By.id("elementosForm:sobrenome")).getAttribute("value"));
+        driver.findElement(By.id("elementosForm:sexo:0")).click();
+        Assert.assertEquals("M", driver.findElement(By.id("elementosForm:sexo:0")).getAttribute("value"));
+        int num = 0;
+        while (num != 2) {
+            driver.findElement(By.id("elementosForm:sexo:" + num)).click();
+            if (num == 0) {
+                Assert.assertEquals("M", driver.findElement(By.id("elementosForm:sexo:0")).getAttribute("value"));
+            }
+            else {
+                Assert.assertEquals("F", driver.findElement(By.id("elementosForm:sexo:1")).getAttribute("value"));
+            }
+            num++;
+        }
+        for (int i = 0; i < 3; i++) {
+            driver.findElement(By.id("elementosForm:comidaFavorita:" + i)).click();
+            Assert.assertTrue(driver.findElement(By.id("elementosForm:comidaFavorita:" + i)).isSelected());
+        }
+        driver.findElement(By.id("elementosForm:cadastrar")).click();
+        Assert.assertEquals("Nome: " + driver.findElement(By.id("elementosForm:nome")).getAttribute("value"), driver.findElement(By.id("descNome")).getText());
+        Assert.assertTrue(driver.findElement(By.id("descSobrenome")).getText().endsWith("Carvalho"));
+        dropDown(driver);
+    }
     public void dropDown(WebDriver params) {
         params.quit();
     }
