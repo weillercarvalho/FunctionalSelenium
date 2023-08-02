@@ -2,6 +2,7 @@ package org.example;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -132,6 +133,23 @@ public class TestingFiles {
         }
         Assert.assertTrue(val);
         dropDown(driver);
+    }
+    @Test
+    public void testAlert() {
+        WebDriver driver = new ChromeDriver();
+        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/components.html");
+        driver.findElement(By.id("alert")).click();
+        Alert alert = driver.switchTo().alert();
+        String value = alert.getText();
+        Assert.assertEquals("Alert Simples", value);
+        alert.accept();
+        driver.findElement(By.id("elementosForm:nome")).sendKeys(value);
+        dropDown(driver);
+    }
+    @Test
+    public void confirmAlert() {
+        WebDriver driver = new ChromeDriver();
+
     }
     public void dropDown(WebDriver params) {
         params.quit();
