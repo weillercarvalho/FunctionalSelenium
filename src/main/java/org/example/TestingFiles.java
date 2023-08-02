@@ -19,7 +19,7 @@ public class TestingFiles {
         driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/components.html");
         driver.findElement(By.name("elementosForm:nome")).sendKeys("Testing");
         Assert.assertEquals("Testing",driver.findElement(By.id("elementosForm:nome")).getAttribute("value"));
-        driver.quit();
+        dropDown(driver);
     }
     @Test
     public void testTextArea() {
@@ -27,7 +27,7 @@ public class TestingFiles {
         driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/components.html");
         driver.findElement(By.name("elementosForm:sugestoes")).sendKeys("Testing");
         Assert.assertEquals("Testing", driver.findElement(By.name("elementosForm:sugestoes")).getAttribute("value"));
-        driver.quit();
+        dropDown(driver);
     }
     @Test
     public void testRadioButton() {
@@ -37,7 +37,7 @@ public class TestingFiles {
             driver.findElement(By.id("elementosForm:sexo:" + i)).click();
             Assert.assertTrue(driver.findElement(By.id("elementosForm:sexo:" + i)).isSelected());
         }
-        driver.quit();
+        dropDown(driver);
     }
     @Test
     public void testCheckbox() {
@@ -47,7 +47,7 @@ public class TestingFiles {
             driver.findElement(By.id("elementosForm:comidaFavorita:" + i)).click();
             Assert.assertTrue(driver.findElement(By.id("elementosForm:comidaFavorita:" + i)).isSelected());
         }
-        driver.quit();
+        dropDown(driver);
     }
     @Test
     public void testComboBox() {
@@ -57,7 +57,7 @@ public class TestingFiles {
         Select comboBox = new Select(element);
         comboBox.selectByIndex(7);
         Assert.assertEquals("Doutorado", comboBox.getFirstSelectedOption().getText());
-        driver.quit();
+        dropDown(driver);
     }
     @Test
     public void testListComboBox() {
@@ -75,7 +75,7 @@ public class TestingFiles {
         }
         Assert.assertTrue(val);
         Assert.assertEquals(8, options.size());
-        driver.quit();
+        dropDown(driver);
     }
     @Test
     public void testListMultCombo() {
@@ -95,7 +95,7 @@ public class TestingFiles {
         }
         Assert.assertEquals(1, allOptions.size());
         Assert.assertFalse(val);
-        driver.quit();
+        dropDown(driver);
     }
     @Test
     public void testClickMessage() {
@@ -104,7 +104,7 @@ public class TestingFiles {
         WebElement element = driver.findElement(By.id("buttonSimple"));
         element.click();
         Assert.assertEquals("Obrigado!", element.getAttribute("value"));
-        driver.quit();
+        dropDown(driver);
     }
 
     @Test
@@ -115,23 +115,25 @@ public class TestingFiles {
         element.click();
         String element1 = driver.findElement(By.id("resultado")).getText();
         Assert.assertEquals("Voltou!", element1);
-        driver.quit();
+        dropDown(driver);
     }
-//    @Test
-//    public void searchText() {
-//        WebDriver driver = new ChromeDriver();
-//        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/components.html");
-//        WebElement element = driver.findElement(By.tagName("a"));
-//        Select link = new Select(element);
-//        List<WebElement> listLink = link.getOptions();
-//        boolean val = false;
-//        for (WebElement links: listLink) {
-//            if (links.getText().equals("Curso de Testes Funcionais automatizados com Selenium Webdriver")) {
-//                val = true;
-//                break;
-//            }
-//        }
-//        Assert.assertTrue(val);
-//    }
-//    RETESTAR ISSO QUE QUE TA DANDO FALHA
+
+    @Test
+    public void searchText() {
+        WebDriver driver = new ChromeDriver();
+        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/components.html");
+        List<WebElement> element = driver.findElements(By.tagName("a"));
+        boolean val = false;
+        for (WebElement links: element) {
+            if (links.getText().equals("Curso de Testes Funcionais automatizados com Selenium Webdriver")) {
+                val = true;
+                break;
+            }
+        }
+        Assert.assertTrue(val);
+        dropDown(driver);
+    }
+    public void dropDown(WebDriver params) {
+        params.quit();
+    }
 }
