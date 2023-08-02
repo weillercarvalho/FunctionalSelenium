@@ -147,10 +147,42 @@ public class TestingFiles {
         dropDown(driver);
     }
     @Test
-    public void confirmAlert() {
+    public void confirmRejectAlert() {
         WebDriver driver = new ChromeDriver();
-
+        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/components.html");
+        driver.findElement(By.id("confirm")).click();
+        Alert alert = driver.switchTo().alert();
+        Assert.assertEquals("Confirm Simples", alert.getText());
+        alert.accept();
+        Assert.assertEquals("Confirmado", alert.getText());
+        alert.accept();
+        driver.findElement(By.id("confirm")).click();
+        alert = driver.switchTo().alert();
+        Assert.assertEquals("Confirm Simples", alert.getText());
+        alert.dismiss();
+        Assert.assertEquals("Negado", alert.getText());
+        alert.accept();
+        dropDown(driver);
     }
+    @Test
+    public void testPrompt() {
+        WebDriver driver = new ChromeDriver();
+        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/components.html");
+        driver.findElement(By.id("prompt")).click();
+        Alert alert = driver.switchTo().alert();
+        Assert.assertEquals("Digite um numero", alert.getText());
+        String value = "1";
+        alert.sendKeys(value);
+        alert.accept();
+        Assert.assertEquals("Era " + value + "?", alert.getText());
+        int num = 0;
+        while (num != 2) {
+            alert.accept();
+            num++;
+        }
+        dropDown(driver);
+    }
+
     public void dropDown(WebDriver params) {
         params.quit();
     }
