@@ -10,6 +10,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
+import java.util.Set;
 
 
 public class TestingFiles {
@@ -143,6 +144,7 @@ public class TestingFiles {
         String value = alert.getText();
         Assert.assertEquals("Alert Simples", value);
         alert.accept();
+        driver.switchTo().defaultContent();
         driver.findElement(By.id("elementosForm:nome")).sendKeys(value);
         dropDown(driver);
     }
@@ -162,6 +164,7 @@ public class TestingFiles {
         alert.dismiss();
         Assert.assertEquals("Negado", alert.getText());
         alert.accept();
+        driver.switchTo().defaultContent();
         dropDown(driver);
     }
     @Test
@@ -210,6 +213,53 @@ public class TestingFiles {
         driver.findElement(By.id("elementosForm:cadastrar")).click();
         Assert.assertEquals("Nome: " + driver.findElement(By.id("elementosForm:nome")).getAttribute("value"), driver.findElement(By.id("descNome")).getText());
         Assert.assertTrue(driver.findElement(By.id("descSobrenome")).getText().endsWith("Carvalho"));
+        dropDown(driver);
+    }
+    @Test
+    public void testFrame() {
+        WebDriver driver = new ChromeDriver();
+        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/components.html");
+        driver.switchTo().frame("frame1");
+        driver.findElement(By.id("frameButton")).click();
+        Alert alert = driver.switchTo().alert();
+        String value = alert.getText();
+        alert.accept();
+        driver.switchTo().defaultContent();
+        driver.findElement(By.id("elementosForm:nome")).sendKeys(value);
+        Assert.assertEquals(value, driver.findElement(By.id("elementosForm:nome")).getAttribute("value"));
+        dropDown(driver);
+    }
+    @Test
+    public void testWindow() {
+        WebDriver driver = new ChromeDriver();
+        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/components.html");
+        driver.findElement(By.id("buttonPopUpEasy")).click();
+        driver.switchTo().window("Popup");
+        driver.findElement(By.tagName("textarea")).sendKeys("Test");
+        driver.close();
+        driver.switchTo().window("");
+        dropDown(driver);
+    }
+    @Test
+    public void testUnknownWindow() {
+        WebDriver driver = new ChromeDriver();
+        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/components.html");
+        driver.findElement(By.id("buttonPopUpHard")).click();
+        Set<String> values = driver.getWindowHandles();
+        for (String value : values) {
+            if (!value.equals(driver.getWindowHandle())) {
+                driver.switchTo().window(value);
+                break;
+            }
+        }
+        driver.findElement(By.tagName("textarea")).sendKeys("Test");
+        for (String value : values) {
+            if (!value.equals(driver.getWindowHandle())) {
+                driver.switchTo().window(value);
+                break;
+            }
+        }
+        driver.findElement(By.tagName("textarea")).sendKeys("Finished test");
         dropDown(driver);
     }
     public void dropDown(WebDriver params) {
