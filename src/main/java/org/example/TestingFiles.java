@@ -14,27 +14,28 @@ import java.util.Set;
 
 
 public class TestingFiles {
+    private WebDriver driver;
+    public void init() {
+        driver = new ChromeDriver();
+        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/components.html");
+    }
     @Test
     public void testTextField() {
-
-        WebDriver driver = new ChromeDriver();
-        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/components.html");
+        init();
         driver.findElement(By.name("elementosForm:nome")).sendKeys("Testing");
         Assert.assertEquals("Testing",driver.findElement(By.id("elementosForm:nome")).getAttribute("value"));
         dropDown(driver);
     }
     @Test
     public void testTextArea() {
-        WebDriver driver = new ChromeDriver();
-        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/components.html");
+        init();
         driver.findElement(By.name("elementosForm:sugestoes")).sendKeys("Testing");
         Assert.assertEquals("Testing", driver.findElement(By.name("elementosForm:sugestoes")).getAttribute("value"));
         dropDown(driver);
     }
     @Test
     public void testRadioButton() {
-        WebDriver driver = new ChromeDriver();
-        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/components.html");
+        init();
         for (int i = 0; i < 2; i++) {
             driver.findElement(By.id("elementosForm:sexo:" + i)).click();
             Assert.assertTrue(driver.findElement(By.id("elementosForm:sexo:" + i)).isSelected());
@@ -43,8 +44,7 @@ public class TestingFiles {
     }
     @Test
     public void testCheckbox() {
-        WebDriver driver = new ChromeDriver();
-        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/components.html");
+        init();
         for (int i = 0; i < 4; i++) {
             driver.findElement(By.id("elementosForm:comidaFavorita:" + i)).click();
             Assert.assertTrue(driver.findElement(By.id("elementosForm:comidaFavorita:" + i)).isSelected());
@@ -53,8 +53,7 @@ public class TestingFiles {
     }
     @Test
     public void testComboBox() {
-        WebDriver driver = new ChromeDriver();
-        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/components.html");
+        init();
         WebElement element = driver.findElement(By.id("elementosForm:escolaridade"));
         Select comboBox = new Select(element);
         comboBox.selectByIndex(7);
@@ -63,8 +62,7 @@ public class TestingFiles {
     }
     @Test
     public void testListComboBox() {
-        WebDriver driver = new ChromeDriver();
-        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/components.html");
+        init();
         WebElement element = driver.findElement(By.id("elementosForm:escolaridade"));
         Select comboBox = new Select(element);
         List<WebElement> options = comboBox.getOptions();
@@ -81,8 +79,7 @@ public class TestingFiles {
     }
     @Test
     public void testListMultCombo() {
-        WebDriver driver = new ChromeDriver();
-        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/components.html");
+        init();
         WebElement element = driver.findElement(By.id("elementosForm:esportes"));
         Select comboBox = new Select(element);
         List<WebElement> options = comboBox.getOptions();
@@ -101,8 +98,7 @@ public class TestingFiles {
     }
     @Test
     public void testClickMessage() {
-        WebDriver driver = new ChromeDriver();
-        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/components.html");
+        init();
         WebElement element = driver.findElement(By.id("buttonSimple"));
         element.click();
         Assert.assertEquals("Obrigado!", element.getAttribute("value"));
@@ -111,8 +107,7 @@ public class TestingFiles {
 
     @Test
     public void testLink() {
-        WebDriver driver = new ChromeDriver();
-        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/components.html");
+        init();
         WebElement element = driver.findElement(By.linkText("Voltar"));
         element.click();
         String element1 = driver.findElement(By.id("resultado")).getText();
@@ -122,8 +117,7 @@ public class TestingFiles {
 
     @Test
     public void searchText() {
-        WebDriver driver = new ChromeDriver();
-        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/components.html");
+        init();
         List<WebElement> element = driver.findElements(By.tagName("a"));
         boolean val = false;
         for (WebElement links: element) {
@@ -137,8 +131,7 @@ public class TestingFiles {
     }
     @Test
     public void testAlert() {
-        WebDriver driver = new ChromeDriver();
-        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/components.html");
+        init();
         driver.findElement(By.id("alert")).click();
         Alert alert = driver.switchTo().alert();
         String value = alert.getText();
@@ -150,8 +143,7 @@ public class TestingFiles {
     }
     @Test
     public void confirmRejectAlert() {
-        WebDriver driver = new ChromeDriver();
-        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/components.html");
+        init();
         driver.findElement(By.id("confirm")).click();
         Alert alert = driver.switchTo().alert();
         Assert.assertEquals("Confirm Simples", alert.getText());
@@ -169,8 +161,7 @@ public class TestingFiles {
     }
     @Test
     public void testPrompt() {
-        WebDriver driver = new ChromeDriver();
-        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/components.html");
+        init();
         driver.findElement(By.id("prompt")).click();
         Alert alert = driver.switchTo().alert();
         Assert.assertEquals("Digite um numero", alert.getText());
@@ -187,8 +178,7 @@ public class TestingFiles {
     }
     @Test
     public void testSignUp() {
-        WebDriver driver = new ChromeDriver();
-        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/components.html");
+        init();
         driver.findElement(By.id("elementosForm:nome")).sendKeys("Weiller");
         Assert.assertEquals("Weiller", driver.findElement(By.id("elementosForm:nome")).getAttribute("value"));
         driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Carvalho");
@@ -217,8 +207,7 @@ public class TestingFiles {
     }
     @Test
     public void testFrame() {
-        WebDriver driver = new ChromeDriver();
-        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/components.html");
+        init();
         driver.switchTo().frame("frame1");
         driver.findElement(By.id("frameButton")).click();
         Alert alert = driver.switchTo().alert();
@@ -231,8 +220,7 @@ public class TestingFiles {
     }
     @Test
     public void testWindow() {
-        WebDriver driver = new ChromeDriver();
-        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/components.html");
+        init();
         driver.findElement(By.id("buttonPopUpEasy")).click();
         driver.switchTo().window("Popup");
         driver.findElement(By.tagName("textarea")).sendKeys("Test");
@@ -242,8 +230,7 @@ public class TestingFiles {
     }
     @Test
     public void testUnknownWindow() {
-        WebDriver driver = new ChromeDriver();
-        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/components.html");
+        init();
         driver.findElement(By.id("buttonPopUpHard")).click();
         Set<String> values = driver.getWindowHandles();
         for (String value : values) {

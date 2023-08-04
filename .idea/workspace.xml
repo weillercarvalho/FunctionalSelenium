@@ -43,7 +43,7 @@
       <recent name="$PROJECT_DIR$/src/main/resources" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.TestingFiles.testUnknownWindow">
+  <component name="RunManager">
     <configuration name="TestingFiles.confirmRejectAlert" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="TestSelenium" />
       <extension name="coverage">
