@@ -1,9 +1,12 @@
 package org.example;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+
+import java.util.List;
 
 public class TestingDSL {
     private final WebDriver driver;
@@ -11,7 +14,15 @@ public class TestingDSL {
     public TestingDSL(WebDriver driver) {
         this.driver = driver;
     }
-
+    public WebElement findById(String element) {
+        return driver.findElement(By.id(element));
+    }
+    public WebElement findByLinkText(String element) {
+        return driver.findElement(By.linkText(element));
+    }
+    public List<WebElement> findByTagName(String element) {
+        return driver.findElements(By.tagName(element));
+    }
     public void writeText(String element, String text) {
         driver.findElement(By.id(element)).sendKeys(text);
     }
@@ -28,6 +39,12 @@ public class TestingDSL {
         WebElement element = driver.findElement(By.id(string));
         Select comboBox = new Select(element);
         comboBox.selectByIndex(num);
+    }
+    public Alert switchAlert() {
+        return driver.switchTo().alert();
+    }
+    public void switchBack() {
+        driver.switchTo().defaultContent();
     }
     public String getOptionCombo(String string) {
         WebElement element = driver.findElement(By.id(string));

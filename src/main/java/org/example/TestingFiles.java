@@ -59,7 +59,7 @@ public class TestingFiles {
     }
     @Test
     public void testListComboBox() {
-        WebElement element = driver.findElement(By.id("elementosForm:escolaridade"));
+        WebElement element = dsl.findById("elementosForm:escolaridade");
         Select comboBox = new Select(element);
         List<WebElement> options = comboBox.getOptions();
         boolean val = false;
@@ -74,7 +74,7 @@ public class TestingFiles {
     }
     @Test
     public void testListMultCombo() {
-        WebElement element = driver.findElement(By.id("elementosForm:esportes"));
+        WebElement element = dsl.findById("elementosForm:esportes");
         Select comboBox = new Select(element);
         List<WebElement> options = comboBox.getOptions();
         comboBox.selectByVisibleText("Karate");
@@ -91,22 +91,22 @@ public class TestingFiles {
     }
     @Test
     public void testClickMessage() {
-        WebElement element = driver.findElement(By.id("buttonSimple"));
+        WebElement element = dsl.findById("buttonSimple");
         element.click();
         Assert.assertEquals("Obrigado!", element.getAttribute("value"));
     }
 
     @Test
     public void testLink() {
-        WebElement element = driver.findElement(By.linkText("Voltar"));
+        WebElement element = dsl.findByLinkText("Voltar");
         element.click();
-        String element1 = driver.findElement(By.id("resultado")).getText();
+        String element1 = dsl.findById("resultado").getText();
         Assert.assertEquals("Voltou!", element1);
     }
 
     @Test
     public void searchText() {
-        List<WebElement> element = driver.findElements(By.tagName("a"));
+        List<WebElement> element = dsl.findByTagName("a");
         boolean val = false;
         for (WebElement links: element) {
             if (links.getText().equals("Curso de Testes Funcionais automatizados com Selenium Webdriver")) {
@@ -118,34 +118,34 @@ public class TestingFiles {
     }
     @Test
     public void testAlert() {
-        driver.findElement(By.id("alert")).click();
-        Alert alert = driver.switchTo().alert();
+        dsl.findById("alert").click();
+        Alert alert = dsl.switchAlert();
         String value = alert.getText();
         Assert.assertEquals("Alert Simples", value);
         alert.accept();
-        driver.switchTo().defaultContent();
-        driver.findElement(By.id("elementosForm:nome")).sendKeys(value);
+        dsl.switchBack();
+        dsl.writeText("elementosForm:nome", value);
     }
     @Test
     public void confirmRejectAlert() {
-        driver.findElement(By.id("confirm")).click();
-        Alert alert = driver.switchTo().alert();
+        dsl.findById("confirm").click();
+        Alert alert = dsl.switchAlert();
         Assert.assertEquals("Confirm Simples", alert.getText());
         alert.accept();
         Assert.assertEquals("Confirmado", alert.getText());
         alert.accept();
-        driver.findElement(By.id("confirm")).click();
-        alert = driver.switchTo().alert();
+        dsl.findById("confirm").click();
+        alert = dsl.switchAlert();
         Assert.assertEquals("Confirm Simples", alert.getText());
         alert.dismiss();
         Assert.assertEquals("Negado", alert.getText());
         alert.accept();
-        driver.switchTo().defaultContent();
+        dsl.switchBack();
     }
     @Test
     public void testPrompt() {
-        driver.findElement(By.id("prompt")).click();
-        Alert alert = driver.switchTo().alert();
+        dsl.findById("prompt").click();
+        Alert alert = dsl.switchAlert();
         Assert.assertEquals("Digite um numero", alert.getText());
         String value = "1";
         alert.sendKeys(value);
@@ -159,30 +159,30 @@ public class TestingFiles {
     }
     @Test
     public void testSignUp() {
-        driver.findElement(By.id("elementosForm:nome")).sendKeys("Weiller");
-        Assert.assertEquals("Weiller", driver.findElement(By.id("elementosForm:nome")).getAttribute("value"));
-        driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Carvalho");
-        Assert.assertEquals("Carvalho", driver.findElement(By.id("elementosForm:sobrenome")).getAttribute("value"));
-        driver.findElement(By.id("elementosForm:sexo:0")).click();
-        Assert.assertEquals("M", driver.findElement(By.id("elementosForm:sexo:0")).getAttribute("value"));
+        dsl.writeText("elementosForm:nome", "Weiller");
+        Assert.assertEquals("Weiller", dsl.getText("elementosForm:nome"));
+        dsl.writeText("elementosForm:sobrenome", "Carvalho");
+        Assert.assertEquals("Carvalho", dsl.getText("elementosForm:sobrenome"));
+        dsl.findById("elementosForm:sexo:0").click();
+        Assert.assertEquals("M", dsl.getText("elementosForm:sexo:0"));
         int num = 0;
         while (num != 2) {
-            driver.findElement(By.id("elementosForm:sexo:" + num)).click();
+            dsl.clickBox("elementosForm:sexo:", num);
             if (num == 0) {
-                Assert.assertEquals("M", driver.findElement(By.id("elementosForm:sexo:0")).getAttribute("value"));
+                Assert.assertEquals("M", dsl.getText("elementosForm:sexo:0"));
             }
             else {
-                Assert.assertEquals("F", driver.findElement(By.id("elementosForm:sexo:1")).getAttribute("value"));
+                Assert.assertEquals("F", dsl.getText("elementosForm:sexo:1"));
             }
             num++;
         }
         for (int i = 0; i < 3; i++) {
-            driver.findElement(By.id("elementosForm:comidaFavorita:" + i)).click();
-            Assert.assertTrue(driver.findElement(By.id("elementosForm:comidaFavorita:" + i)).isSelected());
+            dsl.clickBox("elementosForm:comidaFavorita:", i);
+            Assert.assertTrue(dsl.radioBox("elementosForm:comidaFavorita:", i));
         }
-        driver.findElement(By.id("elementosForm:cadastrar")).click();
-        Assert.assertEquals("Nome: " + driver.findElement(By.id("elementosForm:nome")).getAttribute("value"), driver.findElement(By.id("descNome")).getText());
-        Assert.assertTrue(driver.findElement(By.id("descSobrenome")).getText().endsWith("Carvalho"));
+        dsl.findById("elementosForm:cadastrar").click();
+        Assert.assertEquals("Nome: " + dsl.getText("elementosForm:nome"), dsl.findById("descNome").getText());
+        Assert.assertTrue(dsl.findById("descSobrenome").getText().endsWith("Carvalho"));
     }
     @Test
     public void testFrame() {
