@@ -17,10 +17,12 @@ import java.util.Set;
 
 public class TestingFiles {
     private WebDriver driver;
+    private TestingDSL dsl;
     @Before
     public void init() {
         driver = new ChromeDriver();
         driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/components.html");
+        dsl = new TestingDSL(driver);
     }
     @After
     public void dropDown() {
@@ -28,34 +30,32 @@ public class TestingFiles {
     }
     @Test
     public void testTextField() {
-        driver.findElement(By.name("elementosForm:nome")).sendKeys("Testing");
-        Assert.assertEquals("Testing",driver.findElement(By.id("elementosForm:nome")).getAttribute("value"));
+        dsl.writeText("elementosForm:nome","Testing");
+        Assert.assertEquals("Testing",dsl.getText("elementosForm:nome"));
     }
     @Test
     public void testTextArea() {
-        driver.findElement(By.name("elementosForm:sugestoes")).sendKeys("Testing");
-        Assert.assertEquals("Testing", driver.findElement(By.name("elementosForm:sugestoes")).getAttribute("value"));
+        dsl.writeText("elementosForm:sugestoes","Testing");
+        Assert.assertEquals("Testing", dsl.getText("elementosForm:sugestoes"));
     }
     @Test
     public void testRadioButton() {
         for (int i = 0; i < 2; i++) {
-            driver.findElement(By.id("elementosForm:sexo:" + i)).click();
-            Assert.assertTrue(driver.findElement(By.id("elementosForm:sexo:" + i)).isSelected());
+            dsl.clickBox("elementosForm:sexo:", i);
+            Assert.assertTrue(dsl.radioBox("elementosForm:sexo:", i));
         }
     }
     @Test
     public void testCheckbox() {
         for (int i = 0; i < 4; i++) {
-            driver.findElement(By.id("elementosForm:comidaFavorita:" + i)).click();
-            Assert.assertTrue(driver.findElement(By.id("elementosForm:comidaFavorita:" + i)).isSelected());
+            dsl.clickBox("elementosForm:comidaFavorita:", i);
+            Assert.assertTrue(dsl.radioBox("elementosForm:comidaFavorita:", i));
         }
     }
     @Test
     public void testComboBox() {
-        WebElement element = driver.findElement(By.id("elementosForm:escolaridade"));
-        Select comboBox = new Select(element);
-        comboBox.selectByIndex(7);
-        Assert.assertEquals("Doutorado", comboBox.getFirstSelectedOption().getText());
+        dsl.selectCombo("elementosForm:escolaridade", 7);
+        Assert.assertEquals("Doutorado", dsl.getOptionCombo("elementosForm:escolaridade"));
     }
     @Test
     public void testListComboBox() {
