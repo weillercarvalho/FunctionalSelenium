@@ -68,7 +68,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestingFiles.testComboBox" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TestingFiles.testFrame" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="TestSelenium" />
       <extension name="coverage">
         <pattern>
@@ -78,23 +78,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="org.example" />
       <option name="MAIN_CLASS_NAME" value="org.example.TestingFiles" />
-      <option name="METHOD_NAME" value="testComboBox" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TestingFiles.testLink" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="TestSelenium" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.example.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.example" />
-      <option name="MAIN_CLASS_NAME" value="org.example.TestingFiles" />
-      <option name="METHOD_NAME" value="testLink" />
+      <option name="METHOD_NAME" value="testFrame" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -132,13 +116,29 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TestingFiles.testWindow" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TestSelenium" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.example" />
+      <option name="MAIN_CLASS_NAME" value="org.example.TestingFiles" />
+      <option name="METHOD_NAME" value="testWindow" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TestingFiles.testWindow" />
+        <item itemvalue="JUnit.TestingFiles.testUnknownWindow" />
+        <item itemvalue="JUnit.TestingFiles.testFrame" />
         <item itemvalue="JUnit.TestingFiles.testSignUp" />
         <item itemvalue="JUnit.TestingFiles.searchText" />
-        <item itemvalue="JUnit.TestingFiles.testLink" />
-        <item itemvalue="JUnit.TestingFiles.testComboBox" />
-        <item itemvalue="JUnit.TestingFiles.testUnknownWindow" />
       </list>
     </recent_temporary>
   </component>

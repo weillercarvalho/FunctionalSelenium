@@ -186,40 +186,40 @@ public class TestingFiles {
     }
     @Test
     public void testFrame() {
-        driver.switchTo().frame("frame1");
-        driver.findElement(By.id("frameButton")).click();
-        Alert alert = driver.switchTo().alert();
+        dsl.switchFrame("frame1");
+        dsl.findById("frameButton").click();
+        Alert alert = dsl.switchAlert();
         String value = alert.getText();
         alert.accept();
-        driver.switchTo().defaultContent();
-        driver.findElement(By.id("elementosForm:nome")).sendKeys(value);
-        Assert.assertEquals(value, driver.findElement(By.id("elementosForm:nome")).getAttribute("value"));
+        dsl.switchBack();
+        dsl.writeText("elementosForm:nome", value);
+        Assert.assertEquals(value, dsl.getText("elementosForm:nome"));
     }
     @Test
     public void testWindow() {
-        driver.findElement(By.id("buttonPopUpEasy")).click();
-        driver.switchTo().window("Popup");
-        driver.findElement(By.tagName("textarea")).sendKeys("Test");
-        driver.close();
-        driver.switchTo().window("");
+        dsl.findById("buttonPopUpEasy").click();
+        dsl.switchWindow("Popup");
+        dsl.writeTextTagname("textarea", "Test");
+        dsl.close();
+        dsl.switchWindow("");
     }
     @Test
     public void testUnknownWindow() {
-        driver.findElement(By.id("buttonPopUpHard")).click();
-        Set<String> values = driver.getWindowHandles();
+        dsl.findById("buttonPopUpHard").click();
+        Set<String> values = dsl.windowHandleAll();
         for (String value : values) {
-            if (!value.equals(driver.getWindowHandle())) {
-                driver.switchTo().window(value);
+            if (!value.equals(dsl.windowHandle())) {
+                dsl.switchWindow(value);
                 break;
             }
         }
-        driver.findElement(By.tagName("textarea")).sendKeys("Test");
+        dsl.writeTextTagname("textarea", "Test");
         for (String value : values) {
-            if (!value.equals(driver.getWindowHandle())) {
-                driver.switchTo().window(value);
+            if (!value.equals(dsl.windowHandle())) {
+                dsl.switchWindow(value);
                 break;
             }
         }
-        driver.findElement(By.tagName("textarea")).sendKeys("Finished test");
+        dsl.writeTextTagname("textarea", "Finished test");
     }
 }

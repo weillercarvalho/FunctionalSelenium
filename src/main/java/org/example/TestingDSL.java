@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
+import java.util.Set;
 
 public class TestingDSL {
     private final WebDriver driver;
@@ -26,6 +27,9 @@ public class TestingDSL {
     public void writeText(String element, String text) {
         driver.findElement(By.id(element)).sendKeys(text);
     }
+    public void writeTextTagname(String element, String text) {
+        driver.findElement(By.tagName(element)).sendKeys(text);
+    }
     public String getText(String element) {
         return driver.findElement(By.id(element)).getAttribute("value");
     }
@@ -43,9 +47,14 @@ public class TestingDSL {
     public Alert switchAlert() {
         return driver.switchTo().alert();
     }
+    public Object switchFrame(String element) { return driver.switchTo().frame(element);}
+    public Object switchWindow(String element) { return driver.switchTo().window(element);}
+    public void close() {driver.close();}
     public void switchBack() {
         driver.switchTo().defaultContent();
     }
+    public String windowHandle() {return driver.getWindowHandle();}
+    public Set<String> windowHandleAll() {return driver.getWindowHandles();}
     public String getOptionCombo(String string) {
         WebElement element = driver.findElement(By.id(string));
         Select comboBox = new Select(element);
